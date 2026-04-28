@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FUTURE® // Instantanés d'Artistes — Collection Streetwear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-elev: #121212;
+    --fg: #EAEAEA;
+    --fg-dim: #6a6a6a;
+    --accent: #39FF14;
+    --rule: #2a2a2a;
+    --rule-hi: #EAEAEA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Analog degradation: scanlines + noise */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 200;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 2px,
+        rgba(0,0,0,0.25) 2px,
+        rgba(0,0,0,0.25) 3px
+      );
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 201;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.35;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  mono, samp, kbd, data, output { font-family: 'Space Mono', monospace; }
+
+  .mono { font-family: 'Space Mono', monospace; }
+  .macro { font-family: 'Archivo Black', 'Arial Black', sans-serif; }
+
+  /* === Utility classes === */
+  .uc { text-transform: uppercase; }
+  .dim { color: var(--fg-dim); }
+  .hi { color: var(--accent); }
+
+  /* === TOP TELEMETRY STRIP === */
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border-bottom: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .strip > span {
+    background: var(--bg);
+    padding: 8px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .strip .hi { color: var(--accent); }
+
+  /* === NAV === */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    display: grid;
+    grid-template-columns: 220px 1fr auto;
+    align-items: stretch;
+    background: var(--bg);
+    border-bottom: 2px solid var(--rule-hi);
+  }
+  nav > * {
+    padding: 18px 20px;
+    border-right: 1px solid var(--rule);
+  }
+  nav > *:last-child { border-right: none; }
+
+  .logo-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-mark {
+    width: 22px; height: 22px;
+    background: var(--accent);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .logo-mark::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    background: var(--bg);
+  }
+  .logo-mark::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    background: var(--accent);
+  }
+  .logo-text {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .logo-text sup {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--fg-dim);
+    margin-left: 4px;
+    vertical-align: top;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .nav-links a {
+    padding: 4px 18px;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .nav-links a:last-child { border-right: none; }
+  .nav-links a::before {
+    content: "[";
+    color: var(--fg-dim);
+    margin-right: 6px;
+  }
+  .nav-links a::after {
+    content: "]";
+    color: var(--fg-dim);
+    margin-left: 6px;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::before,
+  .nav-links a:hover::after { color: var(--accent); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .nav-right .cart {
+    background: var(--fg);
+    color: var(--bg);
+    padding: 8px 14px;
+    font-weight: 700;
+  }
+
+  /* === HERO === */
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 80px 1fr 280px;
+    grid-template-rows: auto 1fr auto;
+    min-height: calc(100vh - 80px);
+    border-bottom: 2px solid var(--rule-hi);
+  }
+
+  /* left vertical rail */
+  .rail {
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .rail .hi { color: var(--accent); }
+
+  .rail-bottom {
+    transform: rotate(180deg);
+  }
+
+  /* hero center */
+  .hero-head {
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .hero-head .hi { color: var(--accent); }
+
+  .hero-main {
+    grid-column: 2 / 3;
+    position: relative;
+    padding: 40px 40px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin-bottom: 30px;
+  }
+  .hero-label::before {
+    content: "";
+    width: 40px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-label .hi { color: var(--accent); }
+
+  h1.hero-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(4.5rem, 15vw, 16rem);
+    line-height: 0.82;
+    letter-spacing: -0.055em;
+    text-transform: uppercase;
+  }
+  h1.hero-title .slash {
+    color: var(--accent);
+    display: inline-block;
+    transform: skewX(-18deg);
+    margin: 0 0.02em;
+  }
+  h1.hero-title .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--fg);
+  }
+  h1.hero-title .crop {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0 0.08em;
+    line-height: 0.8;
+  }
+
+  h2.hero-h2 {
+    margin-top: 30px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.3rem, 2.2vw, 2.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    max-width: 900px;
+    padding-left: 24px;
+    border-left: 4px solid var(--accent);
+    font-weight: 400;
+  }
+  h2.hero-h2 .hi { color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    border-top: 1px solid var(--rule);
+    padding-top: 30px;
+  }
+
+  .hero-tag {
+    max-width: 520px;
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+    color: var(--fg);
+  }
+  .hero-tag .prompt { color: var(--accent); }
+  .hero-tag .dim { color: var(--fg-dim); }
+
+  .hero-cta {
+    display: flex;
+    gap: 0;
+  }
+  .btn {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 20px 32px;
+    border: 1px solid var(--fg);
+    background: transparent;
+    color: var(--fg);
+    cursor: pointer;
+    transition: none;
+    position: relative;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: var(--bg);
+    color: var(--accent);
+  }
+  .btn-secondary { border-left: none; }
+  .btn-secondary:hover {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  /* right column — telemetry readout */
+  .hero-readout {
+    grid-column: 3 / 4;
+    grid-row: 1 / 4;
+    border-left: 1px solid var(--rule);
+    display: grid;
+    grid-template-rows: auto 1fr auto auto auto auto;
+    gap: 1px;
+    background: var(--rule);
+  }
+  .hero-readout > * {
+    background: var(--bg);
+    padding: 16px 20px;
+  }
+  .hero-readout .read-cta {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: none;
+  }
+  .hero-readout .read-cta .price {
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+  .hero-readout .read-cta .arrow {
+    font-size: 16px;
+    line-height: 1;
+  }
+  .hero-readout .read-cta:hover {
+    background: var(--bg);
+    color: var(--accent);
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  .read-head {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    display: flex;
+    justify-content: space-between;
+  }
+  .read-head .hi { color: var(--accent); }
+
+  .read-img {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    background: #0a0a0a url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><defs><pattern id='h' x='0' y='0' width='6' height='6' patternUnits='userSpaceOnUse'><circle cx='2' cy='2' r='1' fill='%23222'/></pattern></defs><rect width='100%' height='100%' fill='url(%23h)'/></svg>");
+    aspect-ratio: 3 / 4;
+  }
+  .read-img::before {
+    /* placeholder silhouette — hidden when a real photo is injected */
+    content: none;
+  }
+  .read-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: contrast(1.08) saturate(1.05);
+  }
+
+  /* === Hero readout — thumbnail strip === */
+  .read-thumbs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--rule);
+    padding: 0;
+  }
+  .read-thumbs .thumb {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--bg);
+    cursor: pointer;
+  }
+  .read-thumbs .thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05);
+    transition: filter .25s ease, transform .25s ease;
+  }
+  .read-thumbs .thumb:hover img {
+    filter: contrast(1.2) saturate(1.2);
+    transform: scale(1.04);
+  }
+  .read-thumbs .thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent 0 6px,
+      rgba(0,0,0,0.18) 6px 7px
+    );
+    pointer-events: none;
+  }
+  .read-thumbs .thumb .corner {
+    position: absolute;
+    width: 8px; height: 8px;
+    border: 1px solid var(--accent);
+    z-index: 2;
+  }
+  .read-thumbs .thumb .corner.tl { top: 4px; left: 4px; border-right: none; border-bottom: none; }
+  .read-thumbs .thumb .corner.br { bottom: 4px; right: 4px; border-left: none; border-top: none; }
+  .read-thumbs .thumb .lbl {
+    position: absolute;
+    bottom: 4px; left: 4px;
+    z-index: 3;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 2px 5px;
+    font-weight: 700;
+  }
+  .read-img::after {
+    content: "+";
+    position: absolute;
+    top: 10px; right: 10px;
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .read-img .corners {
+    position: absolute; inset: 0;
+    z-index: 2;
+  }
+  .read-img .corners span {
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 2px solid var(--fg);
+  }
+  .read-img .corners .tl { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+  .read-img .corners .tr { top: 8px; right: 8px; border-left: none; border-bottom: none; }
+  .read-img .corners .bl { bottom: 8px; left: 8px; border-right: none; border-top: none; }
+  .read-img .corners .br { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+  .read-img .crosshair {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 40px; height: 40px;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--accent);
+    z-index: 3;
+  }
+  .read-img .crosshair::before,
+  .read-img .crosshair::after {
+    content: "";
+    position: absolute;
+    background: var(--accent);
+  }
+  .read-img .crosshair::before { top: 50%; left: -10px; right: -10px; height: 1px; }
+  .read-img .crosshair::after { left: 50%; top: -10px; bottom: -10px; width: 1px; }
+
+  .read-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px 0;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .read-data dt { color: var(--fg-dim); padding: 4px 0; }
+  .read-data dd { color: var(--fg); padding: 4px 0; text-align: right; }
+  .read-data .hi { color: var(--accent); }
+
+  .read-bar {
+    padding: 12px 20px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--fg) 0 2px,
+      transparent 2px 4px,
+      var(--fg) 4px 5px,
+      transparent 5px 9px,
+      var(--fg) 9px 11px,
+      transparent 11px 14px
+    );
+    height: 34px;
+  }
+
+  /* === MARQUEE === */
+  .marquee {
+    border-bottom: 2px solid var(--rule-hi);
+    background: var(--fg);
+    color: var(--bg);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 14px 0;
+  }
+  .marquee-track {
+    display: inline-block;
+    animation: scroll 40s linear infinite;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .marquee-track span { margin: 0 24px; }
+  .marquee-track .dot {
+    color: var(--accent);
+    font-size: 18px;
+    vertical-align: middle;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* === VALUES / 3 PROMESSES === */
+  .values {
+    border-bottom: 2px solid var(--rule-hi);
+  }
+  .values-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 40px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .values-head .hi { color: var(--accent); }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+  .val {
+    background: var(--bg);
+    padding: 40px 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    min-height: 360px;
+  }
+  .val-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--fg);
+  }
+  .val:nth-child(1) .val-num { color: var(--accent); -webkit-text-stroke: 0; }
+  .val-bar {
+    height: 2px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--fg) 0 8px,
+      transparent 8px 12px,
+      var(--fg) 12px 14px,
+      transparent 14px 20px
+    );
+  }
+  .val h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3.4rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+  .val p {
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+    max-width: 360px;
+  }
+  .val-foot {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* === SECTION HEADER === */
+  .section-head {
+    display: grid;
+    grid-template-columns: 80px 1fr 280px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-head > * {
+    padding: 60px 40px 30px;
+    border-right: 1px solid var(--rule);
+  }
+  .section-head > *:last-child { border-right: none; }
+  .section-head .tag {
+    padding: 20px 0;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .section-head h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(3rem, 8vw, 9rem);
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+  .section-head h2 .hi { color: var(--accent); }
+
+  .section-head .meta {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+  .section-head .meta .hi { color: var(--accent); }
+  .section-head .meta .row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+  }
+  .section-head .meta .row:last-child { border-bottom: none; }
+
+  /* === PRODUCT GRID === */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border-bottom: 2px solid var(--rule-hi);
+  }
+  .product {
+    background: var(--bg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    cursor: pointer;
+  }
+  .product:hover { background: #0f0f0f; }
+  .product:hover .p-cta { color: var(--accent); border-color: var(--accent); }
+  .product:hover .p-img { filter: none; }
+  .product:hover .p-img::after { opacity: 0; }
+
+  .p-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 10px;
+  }
+  .p-head .idx {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .p-head .status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .p-head .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .p-head .dot.sold { background: var(--fg-dim); }
+
+  .p-img {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background: #0e0e0e url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><defs><pattern id='d' x='0' y='0' width='5' height='5' patternUnits='userSpaceOnUse'><circle cx='2' cy='2' r='1' fill='%23333'/></pattern></defs><rect width='100%' height='100%' fill='url(%23d)'/></svg>");
+    overflow: hidden;
+    filter: contrast(1.05);
+  }
+  .p-img::before {
+    content: "";
+    position: absolute;
+    left: 15%; top: 12%; right: 15%; bottom: 6%;
+    background: linear-gradient(180deg, #1c1c1c 0%, #0e0e0e 100%);
+  }
+  /* When a real <img> is present, hide the CSS silhouette */
+  .p-img.has-photo::before { display: none; }
+  .p-img .p-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: contrast(1.05) saturate(1.05);
+  }
+  .product:hover .p-img .p-photo {
+    filter: contrast(1.15) saturate(1.2);
+    transform: scale(1.02);
+    transition: transform .4s ease, filter .4s ease;
+  }
+
+  /* Flip-on-hover: front image fades to back image */
+  .p-img .p-photo--back {
+    opacity: 0;
+    z-index: 1;
+    transition: opacity .35s ease;
+  }
+  .product:hover .p-img .p-photo--front { opacity: 0; }
+  .product:hover .p-img .p-photo--back { opacity: 1; z-index: 1; }
+  .p-img .p-photo--front {
+    transition: opacity .35s ease, filter .4s ease, transform .4s ease;
+  }
+  .p-img .flip-tag {
+    position: absolute;
+    top: 8px; left: 8px;
+    z-index: 4;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 6px;
+    font-weight: 700;
+    pointer-events: none;
+  }
+  .p-img .flip-tag::before { content: "[ ↻ FACE ]"; }
+  .product:hover .p-img .flip-tag::before { content: "[ ↻ DOS ]"; }
+  .p-img.garment-01::before {
+    clip-path: polygon(
+      38% 0%, 62% 0%,
+      70% 10%, 95% 20%,
+      100% 60%, 88% 100%,
+      12% 100%, 0 60%,
+      5% 20%, 30% 10%
+    );
+  }
+  .p-img.garment-02::before {
+    clip-path: polygon(
+      20% 0%, 80% 0%,
+      100% 15%, 92% 100%,
+      8% 100%, 0 15%
+    );
+  }
+  .p-img.garment-03::before {
+    /* pants */
+    left: 28%; right: 28%;
+    top: 5%; bottom: 0;
+    clip-path: polygon(
+      0 0, 100% 0,
+      95% 50%, 90% 100%,
+      55% 100%, 50% 40%,
+      45% 100%, 10% 100%,
+      5% 50%
+    );
+  }
+  .p-img.garment-04::before {
+    /* sneaker */
+    left: 5%; right: 5%;
+    top: 40%; bottom: 15%;
+    clip-path: polygon(
+      0 60%, 15% 30%, 35% 20%,
+      50% 10%, 70% 15%, 85% 30%,
+      100% 55%, 100% 100%, 0 100%
+    );
+  }
+  .p-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0 10px,
+        rgba(0,0,0,0.3) 10px 11px
+      );
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .p-img.has-photo::after { opacity: 0.35; }
+
+  .p-corners span {
+    position: absolute;
+    width: 10px; height: 10px;
+    border: 1px solid var(--fg);
+    z-index: 2;
+  }
+  .p-corners .tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+  .p-corners .tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
+  .p-corners .bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+  .p-corners .br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+  .p-tag {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 4px 8px;
+    z-index: 3;
+  }
+
+  .p-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .p-spec {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .p-spec b { color: var(--fg); font-weight: 400; }
+
+  .p-foot {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+  .p-price {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .p-price .cur { color: var(--fg-dim); font-size: 11px; margin-right: 4px; }
+  .p-cta {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid var(--rule-hi);
+    color: var(--fg);
+  }
+
+  /* === NEWSLETTER === */
+  .news {
+    display: grid;
+    grid-template-columns: 80px 1.1fr 1fr;
+    border-bottom: 2px solid var(--rule-hi);
+    position: relative;
+  }
+  .news > * {
+    border-right: 1px solid var(--rule);
+    padding: 60px 40px;
+  }
+  .news > *:last-child { border-right: none; }
+
+  .news-rail {
+    padding: 20px 0;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .news-left h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(3rem, 7vw, 8rem);
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+  .news-left h3 .hi { color: var(--accent); }
+  .news-left h3 .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--fg);
+  }
+  .news-lede {
+    margin-top: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+    max-width: 460px;
+    padding-left: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .news-lede .dim { color: var(--fg-dim); }
+
+  .mail-cta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px 24px;
+    background: var(--accent);
+    color: var(--bg);
+    text-transform: uppercase;
+    gap: 4px 20px;
+    border: 2px solid var(--accent);
+  }
+  .mail-cta:hover { background: var(--bg); color: var(--accent); }
+  .mail-cta .mail-label {
+    grid-column: 1 / 2;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+  }
+  .mail-cta .mail-addr {
+    grid-column: 1 / 2;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(14px, 1.6vw, 22px);
+    letter-spacing: -0.02em;
+    word-break: break-all;
+  }
+  .mail-cta .mail-arrow {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px;
+  }
+
+  .news-left .transmit {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+  }
+  .news-left .transmit > div {
+    background: var(--bg);
+    padding: 16px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .news-left .transmit b {
+    display: block;
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--accent);
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  .news-form {
+    position: relative;
+  }
+  .news-form::before {
+    content: "[ TRANSMIT_FORM / REV 2.6 ]";
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .form-inner {
+    margin-top: 60px;
+    border: 1px solid var(--fg);
+    padding: 30px;
+    background: #050505;
+    position: relative;
+  }
+  .form-inner .corners span {
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+  }
+  .form-inner .corners .tl { top: -8px; left: -8px; }
+  .form-inner .corners .tr { top: -8px; right: -8px; }
+  .form-inner .corners .bl { bottom: -8px; left: -8px; }
+  .form-inner .corners .br { bottom: -8px; right: -8px; }
+
+  .field {
+    display: block;
+    margin-bottom: 24px;
+  }
+  .field label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin-bottom: 10px;
+  }
+  .field label .hi { color: var(--accent); }
+  .field input[type=email],
+  .field input[type=text] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--fg);
+    color: var(--fg);
+    padding: 10px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    outline: none;
+  }
+  .field input:focus { border-bottom-color: var(--accent); }
+  .field input::placeholder { color: var(--fg-dim); }
+
+  .checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .checks label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .checks input {
+    appearance: none;
+    width: 14px; height: 14px;
+    border: 2px solid var(--fg);
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .checks input:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .form-actions {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1px;
+    background: var(--rule);
+  }
+  .form-actions .btn { width: 100%; }
+
+  .form-status {
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+  }
+  .form-status .hi { color: var(--accent); }
+
+  /* === PAYMENT BLOCK === */
+  .pay {
+    border-top: 2px solid var(--rule-hi);
+    border-bottom: 2px solid var(--rule-hi);
+    background: var(--bg);
+  }
+  .pay-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .pay-head .hi { color: var(--accent); }
+  .pay-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+  }
+  .pay-grid > * { background: var(--bg); }
+  .pay-rail {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pay-cell {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 32px 40px;
+    position: relative;
+    cursor: pointer;
+  }
+  .pay-cell:hover { background: #0f0f0f; }
+  .pay-cell:hover .pay-arrow { color: var(--accent); }
+
+  .pay-info { display: flex; flex-direction: column; gap: 8px; }
+  .pay-info .meta {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .pay-info h4 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .pay-info .desc {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    color: var(--fg-dim);
+    max-width: 320px;
+  }
+
+  .pay-card {
+    width: 200px;
+    aspect-ratio: 1.6 / 1;
+    background: linear-gradient(140deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 1px solid var(--fg);
+    padding: 14px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .pay-card::before {
+    content: "";
+    position: absolute;
+    top: -20%; right: -20%;
+    width: 60%; height: 140%;
+    background: var(--accent);
+    transform: rotate(20deg);
+    opacity: 0.12;
+  }
+  .pay-card .brand {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--fg);
+    z-index: 1;
+  }
+  .pay-card .brand .hi { color: var(--accent); }
+  .pay-card .chip {
+    width: 32px; height: 24px;
+    background: linear-gradient(135deg, #c4a23f 0%, #6e5a1f 100%);
+    border: 1px solid #2a2a2a;
+    align-self: center;
+    z-index: 1;
+    position: relative;
+  }
+  .pay-card .chip::before,
+  .pay-card .chip::after {
+    content: "";
+    position: absolute;
+    background: rgba(0,0,0,0.4);
+  }
+  .pay-card .chip::before { top: 6px; left: 4px; right: 4px; height: 1px; }
+  .pay-card .chip::after { left: 14px; top: 4px; bottom: 4px; width: 1px; }
+  .pay-card .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--fg);
+    z-index: 1;
+  }
+
+  .pay-pp {
+    width: 200px;
+    aspect-ratio: 1.6 / 1;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .pay-pp::before {
+    content: "[ PP ]";
+    position: absolute;
+    top: 8px; left: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--fg-dim);
+  }
+  .pay-pp::after {
+    content: "● SECURE";
+    position: absolute;
+    bottom: 8px; right: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .pay-pp .pp-mark {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    text-align: center;
+  }
+  .pay-pp .pp-mark .a { color: var(--fg); display: block; }
+  .pay-pp .pp-mark .b { color: var(--accent); display: block; transform: translateX(8px); }
+
+  .pay-arrow {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    color: var(--fg-dim);
+  }
+
+  .pay-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    border-top: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .pay-foot .hi { color: var(--accent); }
+
+  /* === FOOTER === */
+  footer {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr;
+    border-top: 1px solid var(--rule);
+  }
+  footer > * {
+    padding: 30px 40px;
+    border-right: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  footer > *:last-child { border-right: none; }
+  footer .rail-f {
+    padding: 20px 0;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-align: center;
+  }
+  footer b {
+    display: block;
+    font-weight: 400;
+    color: var(--fg);
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+  footer .hi { color: var(--accent); }
+
+  .copyline {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 14px 40px;
+    border-top: 1px solid var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .copyline .center { color: var(--accent); text-align: center; }
+  .copyline .right { text-align: right; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 1000px) {
+    .strip { grid-template-columns: repeat(4, 1fr); }
+    .strip > span:nth-child(n+5) { display: none; }
+    nav { grid-template-columns: 1fr auto; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 40px 1fr; }
+    .hero-readout { display: none; }
+    .section-head { grid-template-columns: 40px 1fr; }
+    .section-head > *:last-child { display: none; }
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .values-grid { grid-template-columns: 1fr; }
+    .values-head { flex-wrap: wrap; gap: 10px; padding: 14px 16px; }
+    .val { padding: 30px 20px; min-height: auto; }
+    .news { grid-template-columns: 1fr; }
+    .news-rail { display: none; }
+    .pay-grid { grid-template-columns: 1fr; }
+    .pay-rail { display: none; }
+    .pay-cell { padding: 24px 20px; gap: 16px; }
+    .pay-card, .pay-pp { width: 140px; }
+    .pay-head, .pay-foot { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+    footer { grid-template-columns: 1fr 1fr; }
+    footer .rail-f { display: none; }
+    .rail { padding: 12px 0; font-size: 9px; }
+  }
+  @media (max-width: 560px) {
+    .products { grid-template-columns: 1fr; }
+    .copyline { grid-template-columns: 1fr; text-align: left; }
+    .copyline .right { text-align: left; }
+    nav > * { padding: 14px 16px; }
+    .hero-head, .hero-main { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="strip">
+  <span>SYS <span class="hi">● EN LIGNE</span></span>
+  <span>LAT 48.856°N</span>
+  <span>LON 002.352°E</span>
+  <span>ÉDITION 04 / 2026</span>
+  <span>UNITÉ D-01 / FUTURE</span>
+  <span>DROP 004 <span class="hi">● LIVE</span></span>
+  <span>LIVRAISON OFFERTE &gt; 200€</span>
+  <span>FR / EN / JP / US</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-block">
+    <div class="logo-mark"></div>
+    <div class="logo-text">FUTURE<sup>®</sup></div>
+  </div>
+  <div class="nav-links">
+    <a href="#">Boutique</a>
+    <a href="#">Drop 004</a>
+    <a href="#">Archives</a>
+    <a href="#">Lookbook</a>
+    <a href="#">Journal</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="nav-right">
+    <span>RECH</span>
+    <span>COMPTE</span>
+    <a href="#" class="cart">PANIER / 00</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- left rail -->
+  <aside class="rail">
+    <span>/// FUTURE<span class="hi"> / </span>INSTANTANÉS_004</span>
+    <span class="rail-bottom">COORD<span class="hi"> // </span>48.85N 02.35E</span>
+  </aside>
+
+  <!-- top meta row -->
+  <div class="hero-head">
+    <span>[ INDEX / 001 ]</span>
+    <span>PE <span class="hi">//</span> 2026 <span class="hi">//</span> DROP 004</span>
+    <span>STATUT : <span class="hi">● EN DIFFUSION</span></span>
+    <span>ÉD. 04</span>
+  </div>
+
+  <!-- headline -->
+  <div class="hero-main">
+    <div class="hero-label">
+      <span>&gt;&gt;&gt; INSTANTANÉS D'ARTISTES</span>
+      <span class="hi">// COLLECTION STREETWEAR</span>
+    </div>
+
+    <h1 class="hero-title">
+      QUAND<br>
+      L'ART<span class="slash">/</span><span class="crop">DESCEND</span><br>
+      <span class="outline">DANS LA RUE</span>
+    </h1>
+
+    <h2 class="hero-h2">
+      Des pièces pensées comme des œuvres.<br>
+      <span class="hi">Portées comme une signature.</span>
+    </h2>
+
+    <div class="hero-sub">
+      <div class="hero-tag">
+        <span class="prompt">&gt;</span> Tu ne cherches pas juste un vêtement.<br>
+        &nbsp;&nbsp;Tu cherches une pièce qui a une âme,<br>
+        &nbsp;&nbsp;une histoire, un regard.<br>
+        <span class="prompt">&gt;</span> Nos créations naissent à la croisée<br>
+        &nbsp;&nbsp;de la photographie artistique, du sport<br>
+        &nbsp;&nbsp;et de la culture urbaine — là où la lumière<br>
+        &nbsp;&nbsp;des néons rencontre le bitume.<br>
+        <span class="prompt">&gt;</span> <span class="dim">Chaque drop est un instantané figé</span><br>
+        &nbsp;&nbsp;<span class="dim">dans le tissu : rare, brut, sincère.</span>
+      </div>
+      <div class="hero-cta">
+        <a href="mailto:instantanés.artistes@gmail.com" class="btn btn-primary">Réserver par Mail &gt;&gt;</a>
+        <a href="#pay" class="btn btn-secondary">CB / PayPal</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- right readout -->
+  <aside class="hero-readout">
+    <div class="read-head">
+      <span>[ FICHE / 001 ]</span>
+      <span class="hi">● DROP 004</span>
+    </div>
+    <div class="read-img">
+      <img class="read-photo" src="img/hero.jpg" alt="Sweat Capuche Doki-Shu — illustration manga néon" loading="eager" />
+      <div class="corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+      <div class="crosshair"></div>
+    </div>
+    <div class="read-thumbs">
+      <div class="thumb">
+        <img src="img/thumb1.jpg" alt="Doki-Shu — vue dos sur graffiti vert" loading="lazy" />
+        <span class="corner tl"></span>
+        <span class="corner br"></span>
+        <span class="lbl">DOS / 01</span>
+      </div>
+      <div class="thumb">
+        <img src="img/thumb2.jpg" alt="Doki-Shu — vue dos comic burst" loading="lazy" />
+        <span class="corner tl"></span>
+        <span class="corner br"></span>
+        <span class="lbl">DOS / 02</span>
+      </div>
+    </div>
+    <dl class="read-data">
+      <dt>UNITÉ</dt><dd>D-001</dd>
+      <dt>MODÈLE</dt><dd class="hi">DOKI-SHU</dd>
+      <dt>POIDS</dt><dd>420 G</dd>
+      <dt>ATELIER</dt><dd>PAR / TYO</dd>
+      <dt>STATUT</dt><dd class="hi">DISPO</dd>
+      <dt>PRIX</dt><dd class="hi">34,90 €</dd>
+    </dl>
+    <a href="mailto:instantanés.artistes@gmail.com?subject=R%C3%A9servation%20Sweat%20Capuche%20Doki-Shu%20001&amp;body=Bonjour%2C%0A%0AJe%20souhaite%20r%C3%A9server%20le%20Sweat%20Capuche%20Doki-Shu%20001%20%E2%80%94%2034%2C90%20%E2%82%AC.%0A%0ATaille%20souhait%C3%A9e%20%3A%20%0AMode%20de%20paiement%20%3A%20CB%20%2F%20PayPal%0A%0AMerci%20!" class="read-cta" aria-label="Réserver le Sweat Capuche Doki-Shu pour 34,90 euros par email">
+      <span>Réserver</span>
+      <span class="price">34,90 €</span>
+      <span class="arrow">&gt;&gt;</span>
+    </a>
+    <div class="read-bar"></div>
+  </aside>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>INSTANTANÉS D'ARTISTES</span><span class="dot">■</span>
+    <span>DROP 004 EN COURS</span><span class="dot">■</span>
+    <span>L'ART DESCEND DANS LA RUE</span><span class="dot">■</span>
+    <span>ÉDITION LIMITÉE</span><span class="dot">■</span>
+    <span>INSTANTANÉS D'ARTISTES</span><span class="dot">■</span>
+    <span>DROP 004 EN COURS</span><span class="dot">■</span>
+    <span>L'ART DESCEND DANS LA RUE</span><span class="dot">■</span>
+    <span>ÉDITION LIMITÉE</span><span class="dot">■</span>
+  </div>
+</div>
+
+<!-- VALUES / 3 PROMESSES -->
+<section class="values">
+  <div class="values-head">
+    <span>[ MANIFESTE / 03 ]</span>
+    <span class="hi">/// TROIS PROMESSES</span>
+    <span>ÉD. 04 // 2026</span>
+  </div>
+  <div class="values-grid">
+    <article class="val">
+      <div class="val-num">01</div>
+      <div class="val-bar"></div>
+      <h3>Édition<br>Limitée.</h3>
+      <p>Pièces en édition limitée, imaginées comme des œuvres exposées.</p>
+      <div class="val-foot">&gt; 120 EX. MAX / DROP</div>
+    </article>
+    <article class="val">
+      <div class="val-num">02</div>
+      <div class="val-bar"></div>
+      <h3>Œil<br>d'Artiste.</h3>
+      <p>Inspirées du sport, de la rue et de l'œil du photographe.</p>
+      <div class="val-foot">&gt; SPORT / RUE / PHOTO</div>
+    </article>
+    <article class="val">
+      <div class="val-num">03</div>
+      <div class="val-bar"></div>
+      <h3>Conçu<br>Pour Durer.</h3>
+      <p>Coupes, matières et imprimés pensés pour durer — pas pour suivre la tendance.</p>
+      <div class="val-foot">&gt; HORS ALGORITHME</div>
+    </article>
+  </div>
+</section>
+
+<!-- PRODUCT HEAD -->
+<div class="section-head" id="shop">
+  <div class="tag">[ COLLECTION / 004 ]</div>
+  <div>
+    <h2>CATALOGUE<span class="hi">/</span><br>DROP 004.</h2>
+  </div>
+  <div class="meta">
+    <div class="row"><span>PIÈCES</span><span class="hi">04 / 04</span></div>
+    <div class="row"><span>FENÊTRE</span><span>AVR 2026</span></div>
+    <div class="row"><span>STATUT</span><span class="hi">● LIVE</span></div>
+    <div class="row"><span>SÉRIE</span><span>120 EX.</span></div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products">
+
+  <article class="product">
+    <div class="p-head">
+      <span class="idx">[ 001 / 04 ]</span>
+      <span class="status"><span class="dot"></span>DISPO</span>
+    </div>
+    <div class="p-img garment-01 has-photo">
+      <img class="p-photo" src="img/p3.jpg" alt="Sweat capuche custom Doki-Shu — geisha streetwear" loading="lazy" />
+      <div class="p-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+    </div>
+    <div class="p-tag">CUSTOM</div>
+    <div class="p-name">Sweat Capuche<br>Doki-Shu 001</div>
+    <dl class="p-spec">
+      <dt>MAT</dt><dd><b>COTON / MOLLETON 420G</b></dd>
+      <dt>COUL</dt><dd><b>BLANC / IMPRIMÉ ROUGE</b></dd>
+      <dt>TAIL</dt><dd><b>S — XXL</b></dd>
+    </dl>
+    <div class="p-foot">
+      <div class="p-price">34,90<span class="cur"> €</span></div>
+      <div class="p-cta">Ajouter &gt;&gt;</div>
+    </div>
+  </article>
+
+  <article class="product">
+    <div class="p-head">
+      <span class="idx">[ 002 / 04 ]</span>
+      <span class="status"><span class="dot"></span>DISPO</span>
+    </div>
+    <div class="p-img garment-02 has-photo">
+      <img class="p-photo" src="img/p2.jpg" alt="Sweat capuche custom Doki-Shu — vue portée néons" loading="lazy" />
+      <div class="p-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+    </div>
+    <div class="p-tag">CUSTOM</div>
+    <div class="p-name">Sweat Capuche<br>Doki-Shu 002</div>
+    <dl class="p-spec">
+      <dt>MAT</dt><dd><b>COTON / MOLLETON 420G</b></dd>
+      <dt>COUL</dt><dd><b>BLANC / IMPRIMÉ ROUGE</b></dd>
+      <dt>TAIL</dt><dd><b>S — XXL</b></dd>
+    </dl>
+    <div class="p-foot">
+      <div class="p-price">34,90<span class="cur"> €</span></div>
+      <div class="p-cta">Ajouter &gt;&gt;</div>
+    </div>
+  </article>
+
+  <article class="product">
+    <div class="p-head">
+      <span class="idx">[ 003 / 04 ]</span>
+      <span class="status"><span class="dot"></span>DISPO</span>
+    </div>
+    <div class="p-img garment-03 has-photo">
+      <img class="p-photo p-photo--front" src="img/p1.jpg" alt="T-shirt blanc logo cercle — face graffiti néon" loading="lazy" />
+      <img class="p-photo p-photo--back" src="img/p3-back-white.jpg?v=4" alt="T-shirt blanc — dos Artistes Exposants sur graffiti" loading="lazy" />
+      <span class="flip-tag"></span>
+      <div class="p-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+    </div>
+    <div class="p-tag">NOUVEAU</div>
+    <div class="p-name">T-shirt<br>Atelier 003</div>
+    <dl class="p-spec">
+      <dt>MAT</dt><dd><b>100% COTON BIO / 220G</b></dd>
+      <dt>COUL</dt><dd><b>BLANC / LOGO NOIR</b></dd>
+      <dt>TAIL</dt><dd><b>XS — XXL</b></dd>
+    </dl>
+    <div class="p-foot">
+      <div class="p-price">19,50<span class="cur"> €</span></div>
+      <div class="p-cta">Ajouter &gt;&gt;</div>
+    </div>
+  </article>
+
+  <article class="product">
+    <div class="p-head">
+      <span class="idx">[ 004 / 04 ]</span>
+      <span class="status"><span class="dot sold"></span>03 RESTANTES</span>
+    </div>
+    <div class="p-img garment-04 has-photo">
+      <img class="p-photo p-photo--front" src="img/p4.jpg" alt="Tee navy — logo vert face" loading="lazy" />
+      <img class="p-photo p-photo--back" src="img/p4-back.jpg" alt="Tee navy — dos Artistes Exposants sur graffiti" loading="lazy" />
+      <span class="flip-tag"></span>
+      <div class="p-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+    </div>
+    <div class="p-name">Tee Néon<br>Atelier 004</div>
+    <dl class="p-spec">
+      <dt>MAT</dt><dd><b>100% COTON BIO / 220G</b></dd>
+      <dt>COUL</dt><dd><b>NAVY / NÉON</b></dd>
+      <dt>TAIL</dt><dd><b>XS — XXL</b></dd>
+    </dl>
+    <div class="p-foot">
+      <div class="p-price">19,50<span class="cur"> €</span></div>
+      <div class="p-cta">Ajouter &gt;&gt;</div>
+    </div>
+  </article>
+
+</section>
+
+<!-- PAYMENT -->
+<section class="pay" id="pay">
+  <div class="pay-head">
+    <span>[ PAIEMENT / SÉCURISÉ ]</span>
+    <span class="hi">/// CARTE BLEUE · PAYPAL</span>
+    <span>CHIFFRÉ // AES-256</span>
+  </div>
+  <div class="pay-grid">
+    <aside class="pay-rail">PAY / 02</aside>
+
+    <div class="pay-cell">
+      <div class="pay-info">
+        <span class="meta">[ MÉTHODE / 01 ]</span>
+        <h4>Carte<br>Bleue.</h4>
+        <span class="desc">Visa · Mastercard · CB. Paiement en 1× ou 3× sans frais. Validation 3D Secure.</span>
+      </div>
+      <div class="pay-card">
+        <span class="brand">FUTURE<span class="hi">®</span></span>
+        <span class="chip"></span>
+        <span class="num">•••• •••• •••• 2026</span>
+      </div>
+      <span class="pay-arrow">&gt;&gt;</span>
+    </div>
+
+    <div class="pay-cell">
+      <div class="pay-info">
+        <span class="meta">[ MÉTHODE / 02 ]</span>
+        <h4>PayPal.</h4>
+        <span class="desc">Express checkout. Paie en deux clics, sans saisir tes coordonnées bancaires.</span>
+      </div>
+      <div class="pay-pp">
+        <div class="pp-mark">
+          <span class="a">Pay</span>
+          <span class="b">Pal</span>
+        </div>
+      </div>
+      <span class="pay-arrow">&gt;&gt;</span>
+    </div>
+  </div>
+  <div class="pay-foot">
+    <span>● 3D SECURE</span>
+    <span>● SSL / TLS 1.3</span>
+    <span>● RGPD CONFORME</span>
+    <span class="hi">● PAIEMENT EN 3× SANS FRAIS</span>
+  </div>
+</section>
+
+<!-- NEWSLETTER HEAD -->
+<div class="section-head" id="news">
+  <div class="tag">[ CONTACT / 01 ]</div>
+  <div>
+    <h2>REJOINS LE<br>SIGNAL<span class="hi">.</span></h2>
+  </div>
+  <div class="meta">
+    <div class="row"><span>CANAL</span><span class="hi">01 / PRIVÉ</span></div>
+    <div class="row"><span>RYTHME</span><span>1 / DROP</span></div>
+    <div class="row"><span>BRUIT</span><span>0%</span></div>
+    <div class="row"><span>SPAM</span><span class="hi">● AUCUN</span></div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="news">
+  <aside class="news-rail">
+    <span>NŒUD / 01</span>
+    <span>&gt;&gt;&gt;</span>
+    <span>TX</span>
+  </aside>
+
+  <div class="news-left">
+    <h3>
+      ENTRE <span class="hi">//</span><br>
+      DANS<br>
+      <span class="outline">L'ATELIER.</span>
+    </h3>
+    <p class="news-lede">
+      Un email direct. Un regard d'artiste.<br>
+      <span class="dim">Pas d'algorithme. Pas de bruit.</span>
+    </p>
+    <div class="transmit">
+      <div>MEMBRES<b>2 418</b></div>
+      <div>RYTHME<b>1 / DROP</b></div>
+      <div>DERNIER<b>2026.03.28</b></div>
+      <div>PROCHAIN<b class="hi">IMMINENT</b></div>
+    </div>
+    <a href="mailto:instantanés.artistes@gmail.com" class="mail-cta">
+      <span class="mail-label">&gt; ÉCRIS-NOUS EN DIRECT</span>
+      <span class="mail-addr">instantanés.artistes@gmail.com</span>
+      <span class="mail-arrow">&gt;&gt;</span>
+    </a>
+  </div>
+
+  <div class="news-form">
+    <form class="form-inner" onsubmit="event.preventDefault(); const s=this.querySelector('.form-status .hi'); s.textContent='● ENVOYÉ'; this.querySelector('.btn-primary').textContent='// SIGNAL REÇU';">
+      <div class="corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+
+      <div class="field">
+        <label>
+          <span>&gt; TON ADRESSE EMAIL</span>
+          <span class="hi">[ REQUIS ]</span>
+        </label>
+        <input type="email" placeholder="toi@exemple.fr" required />
+      </div>
+
+      <div class="field">
+        <label>
+          <span>&gt; TON NOM D'ARTISTE</span>
+          <span>[ OPT ]</span>
+        </label>
+        <input type="text" placeholder="_ _ _ _ _ _ _ _" />
+      </div>
+
+      <div class="checks">
+        <label><input type="checkbox" required> J'accepte les conditions</label>
+        <label><input type="checkbox"> Envoyez-moi les drops privés</label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Rejoindre &gt;&gt;</button>
+        <button type="reset" class="btn btn-secondary">Effacer</button>
+      </div>
+
+      <div class="form-status">
+        <span>STATUT <span class="hi">● EN ATTENTE</span></span>
+        <span>CHIFFRÉ // AES-256</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="rail-f">/// FUTURE® // 2026</div>
+  <div>
+    <b>ATELIER</b>
+    18, rue du Faubourg<br>
+    75011 Paris, FR<br>
+    <span class="hi">● OUVERT VEN / SAM</span>
+  </div>
+  <div>
+    <b>SIGNAUX</b>
+    IG / @instantanés.artistes<br>
+    TG / t.me/future<br>
+    Mail / <span class="hi">instantanés.artistes@gmail.com</span>
+  </div>
+  <div>
+    <b>SOMMAIRE</b>
+    Boutique / Drops<br>
+    Archives / Lookbook<br>
+    Livraison / Retours
+  </div>
+</footer>
+
+<div class="copyline">
+  <span>© 2026 FUTURE® — INSTANTANÉS D'ARTISTES</span>
+  <span class="center">/// QUAND L'ART DESCEND DANS LA RUE ///</span>
+  <span class="right">ATELIER PARIS // ÉD. 04.2026</span>
+</div>
+
+</body>
+</html>
